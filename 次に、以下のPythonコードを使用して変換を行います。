@@ -1,0 +1,15 @@
+import pandas as pd
+import h5py
+
+# pklファイルを読み込む
+pkl_file_path = 'path_to_your_file.pkl'
+df = pd.read_pickle(pkl_file_path)
+
+# h5ファイルに保存する
+h5_file_path = 'path_to_your_file.h5'
+with h5py.File(h5_file_path, 'w') as h5f:
+    # データフレームをh5ファイルに保存
+    for column in df.columns:
+        h5f.create_dataset(column, data=df[column].values)
+
+print(f"Converted {pkl_file_path} to {h5_file_path}")
